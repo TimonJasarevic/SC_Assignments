@@ -1,0 +1,13 @@
+name: sc-ex1
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - matplotlib
+  - numba
+  - ipython
+  - jupyterlab
+  - notebook
+  - pip
