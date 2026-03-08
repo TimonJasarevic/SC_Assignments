@@ -1,4 +1,4 @@
-name: sc-ex1
+name: sc_assignments
 channels:
   - conda-forge
 dependencies:
@@ -10,4 +10,5 @@ dependencies:
   - ipython
   - jupyterlab
   - notebook
+  - tqdm
   - pip
