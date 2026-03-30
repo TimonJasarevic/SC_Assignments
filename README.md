@@ -101,3 +101,121 @@ The conda environment is specified in `environment.yml` and includes Python, Num
 
 ## Hardware
 All experiments run on a standard CPU, no GPU required.
+
+# Scientific Computing Exercise Set #3
+
+Open challenge assignment: Kármán vortex street with three numerical methods, and WiFi router placement using the Helmholtz equation.
+
+This repository contains the code used to generate the results and figures for the report.
+
+## Repository contents
+
+* `Challenge_A.ipynb` - Challenge A: Kármán vortex street using three methods:
+
+  * Finite Difference Method (FDM)
+  * Finite Element Method (FEM, using NGSolve)
+  * Lattice Boltzmann Method (LBM)
+* `Challange_B.py` - Challenge B: WiFi router optimization in a 2D floor plan using a Helmholtz solver with coarse-to-fine search and signal-strength evaluation at the prescribed measurement points
+
+## Quickstart (Conda)
+
+```bash
+# clone
+git clone https://github.com/TimonJasarevic/SC_Assignments
+cd SC_Assignments
+
+# create and activate environment
+conda env create -f environment.yml
+conda activate sc-assignments
+
+# run notebook / script
+jupyter lab
+python Challange_B.py
+```
+
+## Reproducing results
+
+### Challenge A
+
+Open `Challenge_A.ipynb` and run **Restart Kernel & Run All**.
+
+The notebook contains three sections:
+
+1. **Finite Difference**
+2. **Finite Element Method**
+3. **LBM**
+
+These correspond directly to the three methods requested in Assignment Set 3 for the Kármán vortex street challenge.
+
+### Challenge B
+
+Run:
+
+```bash
+python Challenge_B.py
+```
+
+This script:
+
+* builds the room and wall masks
+* solves the Helmholtz equation on a Cartesian grid
+* evaluates signal strength by averaging in a small disk around the four measurement points
+* performs a coarse-to-fine search over router locations
+* prints the best router position and per-room scores
+* plots the final signal-strength field
+
+## Figure mapping (report)
+
+The main report figures are produced by the following files:
+
+* **Challenge A stability comparison and method experiments**: `Challenge_A.ipynb`
+* **WiFi signal strength heatmap / best router location**: `Challange_B.py`
+* **Per-room signal strengths and total score**: `Challange_B.py` console output / report tables
+
+## Assignment-specific notes
+
+### Challenge A
+
+Assignment Set 3 asks for the same flow problem to be solved with:
+
+1. finite difference,
+2. finite element using NGSolve,
+3. lattice Boltzmann,
+
+and compares how high the Reynolds number can go while remaining stable.
+
+### Challenge B
+
+The router optimization challenge uses the scalar Helmholtz equation with:
+
+* Gaussian source amplitude (A = 10^4)
+* source width (\sigma = 0.2) m
+* air refractive index (1.0)
+* wall refractive index (2.5 + 0.5j)
+* signal evaluation by averaging in a disk of radius (5) cm around the four measurement locations
+
+The current implementation uses:
+
+* optimization frequency: **0.8 GHz**
+* coarse grid spacing: **0.05 m**
+* refined grid spacing: **0.0125 m**
+* coarse-to-fine router search with local refinement
+
+## Determinism
+
+Challenge A and Challenge B are deterministic for fixed parameter settings. No random components are used in the current WiFi optimization script.
+
+## Environment
+
+The conda environment should include at least:
+
+* Python
+* NumPy
+* SciPy
+* Matplotlib
+* Jupyter
+* NGSolve / Netgen
+
+## Hardware
+
+All experiments were run on a standard CPU. The WiFi optimization problem becomes computationally expensive at physically realistic WiFi frequencies, which is why motivated approximations and scaled visualization settings are used.

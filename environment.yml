@@ -12,3 +12,4 @@ dependencies:
   - notebook
   - tqdm
   - pip
+  - ngsolve
